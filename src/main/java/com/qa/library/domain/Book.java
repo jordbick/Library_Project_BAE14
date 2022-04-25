@@ -61,7 +61,7 @@ public class Book {
 		this.rating = rating;
 	}
 
-	// Getters and Setters ----------------------------------------------
+	// Getters and Setters ----------------------------------------------------
 	
 	public long getId() {
 		return id;
