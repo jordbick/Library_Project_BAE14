@@ -1,7 +1,6 @@
 package com.qa.library.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +31,9 @@ public class BookService {
 
 	// PUT -----------------------------------------------------------
 	
+	public Book create(Book book) {
+		return repo.saveAndFlush(book);
+	}
 	
 
 }
