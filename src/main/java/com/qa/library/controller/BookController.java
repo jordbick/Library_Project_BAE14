@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,6 +37,12 @@ public class BookController {
 	@GetMapping("/getById/{id}")
 	public ResponseEntity<Book> getById(@PathVariable long id){
 		return new ResponseEntity<Book>(service.getById(id), HttpStatus.OK);
+	}
+	
+	// PUT --------------------------------------------------
+	@PutMapping("/create")
+	public ResponseEntity<Book> create(@PathVariable Book book){
+		return new ResponseEntity<Book>(service.create(book), HttpStatus.CREATED);
 	}
 
 }
