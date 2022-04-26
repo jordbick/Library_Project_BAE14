@@ -2,6 +2,7 @@ package com.qa.library.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -72,5 +73,21 @@ public class BookControllerIntegrationTest {
 				.content(inputAsJSON))
 				.andExpect(status().isCreated()) 
 				.andExpect(content().json(outputAsJSON));
+	}
+	
+	// PUT TESTING ------------------------------------------------------------ 
+	@Test
+	public void updateTest() throws Exception {
+		Book book = new Book("Skint Estate", "Cash Carraway", 2019, "Ebury Press", 4);
+		Book updatedBook = new Book(1L, "Skint Estate", "Cash Carraway", 2019, "Ebury Press", 4);
+		
+		String bookAsJSON = mapper.writeValueAsString(book);
+		String updatedBookAsJSON = mapper.writeValueAsString(updatedBook);
+		
+		mvc.perform(put("/book/update/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(bookAsJSON))
+				.andExpect(status().isAccepted())
+				.andExpect(content().json(updatedBookAsJSON));
 	}
 }
