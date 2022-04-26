@@ -40,7 +40,7 @@ public class BookControllerIntegrationTest {
 	@Test
 	public void getAllTest() throws Exception {
 		List<Book> output = new ArrayList<>();
-		output.add(new Book("Skint Estate", "Cash Carraway", 2019, "Ebury Press", 3));
+		output.add(new Book(1L, "Skint Estate", "Cash Carraway", 2019, "Ebury Press", 3));
 		String outputAsJSON = mapper.writeValueAsString(output);
 
 		mvc.perform(get("/book/getAll").contentType(MediaType.APPLICATION_JSON))
