@@ -108,5 +108,15 @@ public class BookControllerUnitTest {
 					.andExpect(status().isNoContent());
 		}
 	
-	
+		// DELETE TESTING FAIL -----------------------------------------------
+		@Test
+		public void deleteTestFail() throws Exception{
+			
+			Mockito.when(service.delete(1L)).thenReturn(false);
+			
+			mvc.perform(delete("/book/delete/1")
+					.contentType(MediaType.APPLICATION_JSON))
+					.andExpect(status().isInternalServerError());
+			
+		}
 }
