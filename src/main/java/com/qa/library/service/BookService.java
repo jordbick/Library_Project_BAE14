@@ -29,13 +29,13 @@ public class BookService {
 		return repo.findById(id).get();
 	}
 
-	// PUT -----------------------------------------------------------
+	// POST -----------------------------------------------------------
 	
 	public Book create(Book book) {
 		return repo.saveAndFlush(book);
 	}
 	
-	// POST ----------------------------------------------------------
+	// PUT ----------------------------------------------------------
 	
 	public Book update(long id, Book book) {
 		Book bookUpdate = repo.findById(id).get();
