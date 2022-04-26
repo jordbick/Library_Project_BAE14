@@ -46,5 +46,12 @@ public class BookService {
 		bookUpdate.setTitle(book.getTitle());
 		return repo.saveAndFlush(bookUpdate);
 	}
+	
+	// DELETE ---------------------------------------------------------
+	
+	public boolean delete(long id) {
+		repo.deleteById(id);
+		return !repo.existsById(id);
+	}
 
 }
