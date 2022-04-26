@@ -1,6 +1,7 @@
 package com.qa.library.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -55,5 +56,21 @@ public class BookControllerIntegrationTest {
 		mvc.perform(get("/book/getById/1").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().json(bookAsJSON));
+	}
+	
+	// POST TESTING -----------------------------------------------------------
+	@Test
+	public void createTest() throws Exception {
+		Book input = new Book("Braised Pork", "Any Yu", 2020, "Harvill Secker", 2);
+		String inputAsJSON = mapper.writeValueAsString(input);
+		
+		Book output = new Book(2L, "Braised Pork", "Any Yu", 2020, "Harvill Secker", 2);
+		String outputAsJSON = mapper.writeValueAsString(output);
+		
+		mvc.perform(post("/book/create")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(inputAsJSON))
+				.andExpect(status().isCreated()) 
+				.andExpect(content().json(outputAsJSON));
 	}
 }
