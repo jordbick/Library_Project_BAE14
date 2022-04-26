@@ -35,5 +35,16 @@ public class BookService {
 		return repo.saveAndFlush(book);
 	}
 	
+	// POST ----------------------------------------------------------
+	
+	public Book update(long id, Book book) {
+		Book bookUpdate = repo.findById(id).get();
+		bookUpdate.setAuthor(book.getAuthor());
+		bookUpdate.setPublishedYear(book.getPublishedYear());
+		bookUpdate.setPublisher(book.getPublisher());
+		bookUpdate.setRating(book.getRating());
+		bookUpdate.setTitle(book.getTitle());
+		return repo.saveAndFlush(bookUpdate);
+	}
 
 }
