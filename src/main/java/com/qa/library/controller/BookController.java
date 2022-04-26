@@ -56,5 +56,11 @@ public class BookController {
 		return new ResponseEntity<Book>(service.update(id, book), HttpStatus.ACCEPTED);
 	}
 	
+	// DELETE -----------------------------------------------
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> delete(@PathVariable long id){
+		return (service.delete(id)) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) :
+			new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
 }
