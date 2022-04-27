@@ -1,6 +1,6 @@
 "use strict";
 
-const ADDR = "8080";
+const ADDR = "http://localhost:8080";
 
 // Divs
 const RESULTS_DIV = document.querySelector("#results-div");
@@ -22,7 +22,7 @@ const CREATE_BTN = document.querySelector("#create-btn");
 // Get request
 const getAll = () => {
   axios
-    .get(`http://localhost:${ADDR}/book/getAll`)
+    .get(`${ADDR}/book/getAll`)
     .then((res) => {
       RESULTS_DIV.innerHTML = "";
       const RESULTS = res.data;
@@ -40,8 +40,7 @@ function create() {
       selectedRating = parseInt(radioButton.value);
     }
   }
-  console.log(selectedRating);
-  let data = {
+  const data = {
     title: TITLE_EL.value,
     author: AUTHOR_EL.value,
     publishedYear: parseInt(PUBLISHED_YEAR_EL.value),
@@ -50,9 +49,10 @@ function create() {
   };
   console.log(data);
   axios
-    .post(`http://localhost:${ADDR}/book/create`, data)
+    .post(`${ADDR}/book/create`, data)
     .then((res) => console.log(res))
     .catch((err) => alert(err));
+  getAll;
 }
 
 const printResult = (result) => {
@@ -73,12 +73,23 @@ const printResult = (result) => {
   EDIT.setAttribute("class", "btn edit");
   EDIT.setAttribute("onClick", "openEdit(this.id)");
 
+  const DEL = document.createElement("button");
+  DEL.type = "button";
+  DEL.textContent = "Delete";
+  DEL.id = `${result.id}`;
+  DEL.setAttribute("class", "btn btn-sm btn-danger del-btn");
+  DEL.setAttribute("onClick", "del(this.id)");
+
   INNER_DIV.appendChild(VALUES);
   OUTER_DIV.appendChild(INNER_DIV);
+
+  VALUES.appendChild(EDIT);
+  VALUES.appendChild(DEL);
 
   RESULTS_DIV.appendChild(OUTER_DIV);
 };
 
 // Event Listener
 CREATE_BTN.addEventListener("click", create);
+
 getAll();
