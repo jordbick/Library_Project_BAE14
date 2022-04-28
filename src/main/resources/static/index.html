@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="icon" href="./images/business-color_books_icon-icons.com_53474.ico">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="./images/business-color_books_icon-icons.com_53474.ico" alt="Books" width="80" height="80"
+                        onclick="window.location.reload();" title="Home">
+                    <a class="nav-link active px-4" aria-disabled="true" onclick="window.location.reload();"
+                        title="Home">
+                        Library</a>
+                </a>
+
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a type="button" class="nav-link" id="add-btn" href="#" data-bs-toggle="modal"
+                                data-bs-target="#addModal">Add</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-sm-2" type="text" id="search-el" placeholder="Search By ID">
+                        <button class="btn btn-secondary my-2 my-sm-0" id="search-btn" type="button">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <br>
+    <br>
+
+    <div class="container main-block">
+        <div id="results-div"></div>
+    </div>
+
+    <!-- Add Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="add-modal-label">Add Book to the Library</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="form-div">
+                        <form name="createForm">
+                            <div class="form-floating">
+                                <input type="text" class="form-control title-el" id="floatingInput" placeholder="Title"
+                                    autocomplete="off" name="title">
+                                <label for="floatingInput">Title</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" class="form-control author-el" id="floatingInput"
+                                    placeholder="Author" autocomplete="off" name="author">
+                                <label for="floatingPassword">Author</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="number" class="form-control published-year-el" id="floatingInput"
+                                    placeholder="Year Published" autocomplete="off" name="publishedYear">
+                                <label for="floatingPassword">Year Published</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" class="form-control publisher-el" id="floatingInput"
+                                    placeholder="Publisher" autocomplete="off" name="publisher">
+                                <label for="floatingPassword">Publisher</label>
+                            </div>
+                            <div class="form-floating">
+                                <legend class="form-control">Rating:
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-el" type="radio" name="rating" value=1>
+                                        <label class="form-check-label" for="floatingPassword">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-el" type="radio" name="rating" value=2>
+                                        <label class="form-check-label" for="floatingPassword">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-el" type="radio" name="rating" value=3>
+                                        <label class="form-check-label" for="floatingPassword">3</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-el" type="radio" name="rating" value=4>
+                                        <label class="form-check-label" for="floatingPassword">4</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-el" type="radio" name="rating" value=5>
+                                        <label class="form-check-label" for="floatingPassword">5</label>
+                                    </div>
+                                </legend>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        onClick="window.location.reload();" id="create-btn">Save
+                        changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edit-modal-label">Edit Entry</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="form-div">
+                        <form name="editForm">
+                            <input type="hidden" name="entryId">
+                            <div class="form-floating">
+                                <input type="text" class="form-control title-update" id="floatingInput"
+                                    placeholder="Title" autocomplete="off" name="title">
+                                <label for="floatingInput">Title</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" class="form-control author-update" id="floatingInput"
+                                    placeholder="Author" autocomplete="off" name="author">
+                                <label for="floatingPassword">Author</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" class="form-control published-year-update" id="floatingInput"
+                                    placeholder="Year Published" autocomplete="off" name="publishedYear">
+                                <label for="floatingPassword">Year Published</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" class="form-control publisher-update" id="floatingInput"
+                                    placeholder="Publisher" autocomplete="off" name="publisher">
+                                <label for="floatingPassword">Publisher</label>
+                            </div>
+                            <div class="form-floating">
+                                <legend class="form-control">Rating:
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-update" type="radio" name="rating"
+                                            value=1>
+                                        <label class="form-check-label" for="floatingPassword">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-update" type="radio" name="rating"
+                                            value=2>
+                                        <label class="form-check-label" for="floatingPassword">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-update" type="radio" name="rating"
+                                            value=3>
+                                        <label class="form-check-label" for="floatingPassword">3</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-update" type="radio" name="rating"
+                                            value=4>
+                                        <label class="form-check-label" for="floatingPassword">4</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-update" type="radio" name="rating"
+                                            value=5>
+                                        <label class="form-check-label" for="floatingPassword">5</label>
+                                    </div>
+                                </legend>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        onClick="window.location.reload();" id="edit-btn">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--  jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <!-- AXIOS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"></script>
+
+    <!-- MY JS -->
+    <script src="./app.js"></script>
+
+</body>
+
+</html>

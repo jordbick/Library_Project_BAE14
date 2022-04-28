@@ -1,0 +1,31 @@
+.nav li {
+    display: inline;
+}
+
+.nav a {
+    color: rgb(236, 20, 20);
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 10px;
+    display: d-inline-block;
+    text-transform: uppercase;
+}
+
+.nav {
+    background-color: #7f7f7f;
+}
+
+.nav-link.active {
+    /* font-weight: bold; */
+    font-size:40px;
+    color: #ffffff ;
+}
+
+.navbar {
+    background-color:#628a50;
+}
+
+.nav-item{
+    padding: 10px 40px;
+    font-size: 20px;
+}
