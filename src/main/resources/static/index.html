@@ -34,12 +34,6 @@
                             <a type="button" class="nav-link" id="add-btn" href="#" data-bs-toggle="modal"
                                 data-bs-target="#addModal">Add</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Update</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Delete</a>
-                        </li>
                     </ul>
                     <form class="d-flex">
                         <input class="form-control me-sm-2" type="text" placeholder="Search">
@@ -54,19 +48,10 @@
     <br>
 
     <div class="container main-block">
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-            aria-expanded="false" aria-controls="collapseExample">
-            See All Books in the Library
-        </button>
-        </p>
-        <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                <div id="results-div"></div>
-            </div>
-        </div>
+        <div id="results-div"></div>
     </div>
 
-    <!-- Modal -->
+    <!-- Add Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -134,6 +119,82 @@
             </div>
         </div>
     </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edit-modal-label">Edit Entry</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="form-div">
+                        <form name="editForm">
+                            <input type="hidden" name="entryId">
+                            <div class="form-floating">
+                                <input type="text" class="form-control title-update" id="floatingInput"
+                                    placeholder="Title" autocomplete="off" name="title">
+                                <label for="floatingInput">Title</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" class="form-control author-update" id="floatingInput"
+                                    placeholder="Author" autocomplete="off" name="author">
+                                <label for="floatingPassword">Author</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" class="form-control published-year-update" id="floatingInput"
+                                    placeholder="Year Published" autocomplete="off" name="publishedYear">
+                                <label for="floatingPassword">Year Published</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" class="form-control publisher-update" id="floatingInput"
+                                    placeholder="Publisher" autocomplete="off" name="publisher">
+                                <label for="floatingPassword">Publisher</label>
+                            </div>
+                            <div class="form-floating">
+                                <legend class="form-control">Rating:
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-update" type="radio" name="rating"
+                                            value=1>
+                                        <label class="form-check-label" for="floatingPassword">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-update" type="radio" name="rating"
+                                            value=2>
+                                        <label class="form-check-label" for="floatingPassword">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-update" type="radio" name="rating"
+                                            value=3>
+                                        <label class="form-check-label" for="floatingPassword">3</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-update" type="radio" name="rating"
+                                            value=4>
+                                        <label class="form-check-label" for="floatingPassword">4</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input rating-update" type="radio" name="rating"
+                                            value=5>
+                                        <label class="form-check-label" for="floatingPassword">5</label>
+                                    </div>
+                                </legend>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        onClick="window.location.reload();" id="edit-btn">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <!--  jQuery -->
