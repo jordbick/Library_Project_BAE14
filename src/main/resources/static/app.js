@@ -84,6 +84,16 @@ function update() {
     .catch((err) => alert(err));
 }
 
+function del(id) {
+  axios
+    .delete(`${ADDR}/book/delete/${id}`)
+    .then((res) => {
+      console.log(res);
+      getAll();
+    })
+    .catch((err) => alert(err));
+}
+
 const printResult = (result) => {
   const OUTER_DIV = document.createElement("div");
   OUTER_DIV.setAttribute("class", "outer-div");
@@ -97,7 +107,7 @@ const printResult = (result) => {
 
   const BUTTONS = document.createElement("div");
   BUTTONS.role = "group";
-  BUTTONS.class = "btn-group";
+  BUTTONS.setAttribute = ("class", "btn-group");
 
   const EDIT = document.createElement("button");
   EDIT.type = "button";
@@ -112,6 +122,7 @@ const printResult = (result) => {
   DEL.id = result.id;
   DEL.setAttribute("class", "btn btn-sm btn-danger del-btn");
   DEL.setAttribute("onClick", "del(this.id)");
+  //DEL.setAttribute("onClick", "window.location.reload();");
 
   const LINEBREAK = document.createElement("br");
 
