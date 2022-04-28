@@ -1,5 +1,7 @@
 "use strict";
 
+//const { default: axios } = require("axios");
+
 const ADDR = "http://localhost:8080";
 
 // Divs
@@ -22,9 +24,14 @@ const RATING_UPDATE = document.querySelector(".rating-update");
 const RADIO_BUTTONS = document.querySelectorAll('input[name="rating"]');
 let selectedRating;
 
+const SEARCH_EL = document.querySelector("#search-el");
+
 // Buttons
 const CREATE_BTN = document.querySelector("#create-btn");
 const EDIT_BTN = document.querySelector("#edit-btn");
+const SEARCH_BTN = document.querySelector("#search-btn");
+const LOGO_BTN = document.querySelector(".navbar-brand");
+const LIBRARY_BTN = document.querySelector(".nav-link");
 
 // GET ALL request --------------------------------------------------------------------------
 const getAll = () => {
@@ -39,6 +46,18 @@ const getAll = () => {
     })
     .catch((err) => console.error(err));
 };
+
+// GET BY ID request
+function getByID() {
+  axios
+    .get(`${ADDR}/book/getById/${SEARCH_EL.value}`)
+    .then((res) => {
+      RESULTS_DIV.innerHTML = "";
+      const RESULTS = res.data;
+      printResult(RESULTS);
+    })
+    .catch((err) => alert(err));
+}
 
 // POST request -------------------------------------------------------------------------------
 function create() {
@@ -122,7 +141,6 @@ const printResult = (result) => {
   DEL.id = result.id;
   DEL.setAttribute("class", "btn btn-sm btn-danger del-btn");
   DEL.setAttribute("onClick", "del(this.id)");
-  //DEL.setAttribute("onClick", "window.location.reload();");
 
   const LINEBREAK = document.createElement("br");
 
@@ -161,5 +179,7 @@ const openEdit = (id) => {
 // Event Listener
 CREATE_BTN.addEventListener("click", create);
 EDIT_BTN.addEventListener("click", update);
+SEARCH_BTN.addEventListener("click", getByID);
+LOGO_BTN.addEventListener;
 
 getAll();
