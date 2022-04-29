@@ -1,4 +1,4 @@
-src/main/java coverage: 82.3%
+src/main/java coverage: 83.0%
 
 # CRUD-Based Web Application using Spring Boot/Java: A Personal Library
 Fullstack project for BAE14 Academy <br><br>
