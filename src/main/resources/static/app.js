@@ -1,7 +1,5 @@
 "use strict";
 
-//const { default: axios } = require("axios");
-
 const ADDR = "http://localhost:8080";
 
 // Divs
@@ -24,11 +22,13 @@ const RATING_UPDATE = document.querySelector(".rating-update");
 const RADIO_BUTTONS = document.querySelectorAll('input[name="rating"]');
 let selectedRating;
 
+const SEARCH_BY_ID_EL = document.querySelector("#search-by-id-el");
 const SEARCH_EL = document.querySelector("#search-el");
 
 // Buttons
 const CREATE_BTN = document.querySelector("#create-btn");
 const EDIT_BTN = document.querySelector("#edit-btn");
+const SEARCH_BY_ID_BTN = document.querySelector("#search-by-id-btn");
 const SEARCH_BTN = document.querySelector("#search-btn");
 const LOGO_BTN = document.querySelector(".navbar-brand");
 const LIBRARY_BTN = document.querySelector(".nav-link");
@@ -50,11 +50,25 @@ const getAll = () => {
 // GET BY ID request
 function getByID() {
   axios
-    .get(`${ADDR}/book/getById/${SEARCH_EL.value}`)
+    .get(`${ADDR}/book/getById/${SEARCH_BY_ID_EL.value}`)
     .then((res) => {
       RESULTS_DIV.innerHTML = "";
       const RESULTS = res.data;
       printResult(RESULTS);
+    })
+    .catch((err) => alert(err));
+}
+
+// SEARCH
+function search() {
+  axios
+    .get(`${ADDR}/book/search/${SEARCH_EL.value}`)
+    .then((res) => {
+      RESULTS_DIV.innerHTML = "";
+      const RESULTS = res.data;
+      for (let result of RESULTS) {
+        printResult(result);
+      }
     })
     .catch((err) => alert(err));
 }
@@ -179,7 +193,8 @@ const openEdit = (id) => {
 // Event Listener
 CREATE_BTN.addEventListener("click", create);
 EDIT_BTN.addEventListener("click", update);
-SEARCH_BTN.addEventListener("click", getByID);
+SEARCH_BY_ID_BTN.addEventListener("click", getByID);
+SEARCH_BTN.addEventListener("click", search);
 LOGO_BTN.addEventListener;
 
 getAll();
