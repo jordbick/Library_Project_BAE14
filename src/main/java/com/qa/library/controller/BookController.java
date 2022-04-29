@@ -44,6 +44,12 @@ public class BookController {
 		return new ResponseEntity<Book>(service.getById(id), HttpStatus.OK);
 	}
 	
+	// SEARCH
+	@GetMapping("/search/{param}")
+	public ResponseEntity<List<Book>> search(@PathVariable String param) {
+		return new ResponseEntity<List<Book>>(service.search(param), HttpStatus.OK);
+	}
+	
 	// POST --------------------------------------------------
 	@PostMapping("/create")
 	public ResponseEntity<Book> create(@Valid @RequestBody Book book){
