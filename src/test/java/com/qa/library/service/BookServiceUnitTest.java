@@ -89,7 +89,7 @@ public class BookServiceUnitTest {
 		service.delete(1L);
 		assertEquals(Optional.empty(), repo.findById(1L));
 		
-		verify(repo, times(1)).existsById(1L);
+		verify(repo, times(2)).existsById(1L);
 		verify(repo, times(1)).deleteById(1L);
 	}
 	

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.library.domain.Book;
+import com.qa.library.exception.BookNotFoundException;
 import com.qa.library.repo.BookRepo;
 
 @Service
@@ -25,9 +26,11 @@ public class BookService {
 		return repo.findAll();
 	}
 	
-	public Book getById(long id) {
-		return repo.findById(id).get();
+	public Book getById(long id) throws BookNotFoundException {
+		return repo.findById(id).orElseThrow(BookNotFoundException::new);
 	}
+	
+	// SEARCH
 
 	// POST -----------------------------------------------------------
 	
@@ -37,8 +40,8 @@ public class BookService {
 	
 	// PUT ----------------------------------------------------------
 	
-	public Book update(long id, Book book) {
-		Book bookUpdate = repo.findById(id).get();
+	public Book update(long id, Book book) throws BookNotFoundException {
+		Book bookUpdate = repo.findById(id).orElseThrow(BookNotFoundException::new);
 		bookUpdate.setAuthor(book.getAuthor());
 		bookUpdate.setPublishedYear(book.getPublishedYear());
 		bookUpdate.setPublisher(book.getPublisher());
@@ -49,9 +52,13 @@ public class BookService {
 	
 	// DELETE ---------------------------------------------------------
 	
-	public boolean delete(long id) {
-		repo.deleteById(id);
-		return !repo.existsById(id);
+	public boolean delete(long id) throws BookNotFoundException {
+		if (!repo.existsById(id)) {
+			throw new BookNotFoundException();
+		} else {
+			repo.deleteById(id);
+			return !repo.existsById(id);
+		}
 	}
 
 }

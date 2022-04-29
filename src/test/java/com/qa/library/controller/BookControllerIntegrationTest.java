@@ -1,10 +1,12 @@
 package com.qa.library.controller;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.library.domain.Book;
@@ -59,6 +63,20 @@ public class BookControllerIntegrationTest {
 				.andExpect(content().json(bookAsJSON));
 	}
 	
+	// GET BY INVALID ID TEST
+	@Test
+	public void getByInvalidIdTest() throws Exception {
+		MvcResult result = mvc.perform(get("/book/getById/5"))
+			.andDo(MockMvcResultHandlers.print())
+			.andReturn();
+		 
+		 String content = result.getResponse().getContentAsString();
+		 
+		 mvc.perform(get("/book/getById/5"))
+		 	.andExpect(status().isNotFound())
+		 	.andExpect(content().string(content));
+	}
+	
 	// POST TESTING -----------------------------------------------------------
 	@Test
 	public void createTest() throws Exception {
@@ -91,10 +109,47 @@ public class BookControllerIntegrationTest {
 				.andExpect(content().json(updatedBookAsJSON));
 	}
 	
+	// PUT BY INVLAID ID TESTING
+	@Test
+	public void putByInvalidIdTest() throws Exception {
+		Book book = new Book("Skint Estate", "Cash Carraway", 2019, "Ebury Press", 4);
+		String bookAsJSON = mapper.writeValueAsString(book);
+		
+		MvcResult result = mvc.perform(put("/book/update/5")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(bookAsJSON))
+				.andDo(MockMvcResultHandlers.print())
+				.andReturn();
+		 
+		 String content = result.getResponse().getContentAsString();
+		 
+		 mvc.perform(put("/book/update/5")
+		 	.contentType(MediaType.APPLICATION_JSON)
+			.content(bookAsJSON))
+		 	.andExpect(status().isNotFound())
+		 	.andExpect(content().string(content));
+	}
+
+	
 	// DELETE TESTING ---------------------------------------------------------
 	@Test
 	public void deleteTest() throws Exception {
 		mvc.perform(delete("/book/delete/1"))
 				.andExpect(status().isNoContent());
+	}
+	
+	// DELETE BY INVALID ID TESTING --------------------------------------------
+	@Test
+	public void deleteInvalidId() throws Exception {
+		MvcResult result = mvc.perform(delete("/book/delete/5"))
+				.andDo(MockMvcResultHandlers.print())
+				.andReturn();
+			 
+			 boolean content = result.getResponse().getContentAsString().contains("Book with that id does not exists");
+			 
+			 System.out.println(content);
+			 
+			 mvc.perform(delete("/book/delete/5"))
+			 	.andExpect(status().isNotFound());
 	}
 }
