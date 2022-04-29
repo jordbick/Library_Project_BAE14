@@ -48,6 +48,21 @@ public class BookControllerUnitTest {
 					.andExpect(status().isOk())
 					.andExpect(content().json(outputAsJSON));
 		}
+		
+	// SEARCH TEST
+		@Test
+		public void searchTest() throws Exception {
+			List<Book> output = new ArrayList<>();
+			output.add(new Book(1L, "Skint Estate", "Cash Carraway", 2019, "Ebury Press", 3));
+			String outputAsJSON = mapper.writeValueAsString(output);
+			
+			Mockito.when(service.search("Cash")).thenReturn(output);
+			
+			mvc.perform(get("/book/search/Cash").contentType(MediaType.APPLICATION_JSON))
+					.andExpect(status().isOk())
+					.andExpect(content().json(outputAsJSON));
+
+		}
 
 		// GET BY ID TEST ---------------------------------------------------------
 		@Test
