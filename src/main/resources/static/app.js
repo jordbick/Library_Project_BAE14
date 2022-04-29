@@ -91,7 +91,6 @@ function create() {
     .post(`${ADDR}/book/create`, data)
     .then((res) => console.log(res))
     .catch((err) => alert(err));
-  getAll;
 }
 
 // PUT request --------------------------------------------------------------------------
