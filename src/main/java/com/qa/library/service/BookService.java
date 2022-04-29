@@ -31,6 +31,9 @@ public class BookService {
 	}
 	
 	// SEARCH
+	public List<Book> search(String param) {
+		return repo.searchSQL(param);
+	}
 
 	// POST -----------------------------------------------------------
 	
